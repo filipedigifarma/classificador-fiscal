@@ -37,34 +37,7 @@ Esta API permite que empresas parceiras enviem notificações sobre CNPJs que en
 
 ---
 
-### 2. Validar Token
-**Rota:** `POST /validar-token.php`
-
-**Descrição:** Verifica se o token fornecido é válido e está associado a um CNPJ no banco de dados.
-
-**Cabeçalhos:**
-- **Authorization** (string): Token gerado previamente.
-
-**Exemplo de Requisição:**
-```http
-Authorization: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-```
-
-**Exemplo de Resposta (Sucesso):**
-```json
-{
-  "success": "Token válido",
-  "cnpj": "12345678000195"
-}
-```
-
-**Códigos de Resposta:**
-- **200:** Token válido.
-- **401:** Token inválido ou ausente.
-
----
-
-### 3. Registrar Notificação
+### 2. Registrar Notificação
 **Rota:** `POST /index.php`
 
 **Descrição:** Registra notificações de entrada ou saída de CNPJs enviados pelas empresas parceiras.
