@@ -32,7 +32,7 @@ if ($mysqli->connect_error) {
 // Inserir token no banco
 $senha = password_hash($senhaJ, PASSWORD_BCRYPT);
 $stmt = $mysqli->prepare("INSERT INTO integrador_fiscal (cnpj, nome, senha, token) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE token = VALUES(token)");
-$stmt->bind_param("sss", $cnpj, $nome, $senha, $token);
+$stmt->bind_param("ssss", $cnpj, $nome, $senha, $token);
 
 if ($stmt->execute()) {
     http_response_code(200);
