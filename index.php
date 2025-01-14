@@ -50,7 +50,7 @@ if (!$cnpj || !in_array($status, ['entrada', 'saida'])) {
 }
 
 // Inserir ou atualizar os dados
-$stmt = $mysqli->prepare("INSERT INTO cnpj_notifications (cnpj, status) VALUES (?, ?) ON DUPLICATE KEY UPDATE status = VALUES(status)");
+$stmt = $mysqli->prepare("INSERT INTO integrador_fiscal_lojas (cnpj, status) VALUES (?, ?) ON DUPLICATE KEY UPDATE status = VALUES(status)");
 $stmt->bind_param("ss", $cnpj, $status);
 
 if ($stmt->execute()) {
