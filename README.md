@@ -99,10 +99,7 @@ Authorization: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
 ---
 
-
 ## Observações Finais
 - Certifique-se de que todas as conexões usem HTTPS.
 - As senhas são armazenadas usando `password_hash` para maior segurança.
 - As respostas da API estão padronizadas em JSON para facilitar a integração.
-
-Se houver dúvidas ou necessidade de ajustes, entre em contato com o desenvolvedor responsável.
