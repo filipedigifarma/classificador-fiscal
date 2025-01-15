@@ -1,6 +1,4 @@
-Aqui está a documentação formatada para o arquivo `README.md` no GitHub:
 
-```markdown
 # API - Integração Fiscal
 
 ## Descrição
