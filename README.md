@@ -10,6 +10,7 @@ Esta API permite a integração com sistemas fiscais através da validação de 
 
 ### **1. Geração de Token**
 **URL BASE:** `https://www.digifarma.com.br/servicos/post/classificador-fiscal`
+
 **ENDPOINT:** `/geratoken`  
 **Método:** `POST`  
 **Descrição:** Gera um token para autenticação futura, associando um CNPJ, nome e senha.
