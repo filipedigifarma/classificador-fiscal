@@ -1,77 +1,140 @@
-# Documentação da API de Integração Fiscal
+Aqui está a documentação formatada para o arquivo `README.md` no GitHub:
 
-## Introdução
-Esta API permite que empresas parceiras enviem notificações sobre CNPJs que entraram ou saíram de suas bases. Ela é composta por três principais endpoints: geração de token, validação de token, e registro de notificações.
+```markdown
+# API - Integração Fiscal
 
-## Endpoints
-
-### 1. Gerar Token
-**Rota:** `POST /geratoken.php`
-
-**Descrição:** Gera um token único para a empresa com base no CNPJ e salva no banco de dados.
-
-**Parâmetros de Entrada:**
-- **cnpj** (string): CNPJ da empresa parceira (14 dígitos).
-- **senha** (string): Senha da empresa.
-
-**Exemplo de Requisição:**
-```json
-{
-  "cnpj": "12345678000195",
-  "senha": "senha123"
-}
-```
-
-**Exemplo de Resposta (Sucesso):**
-```json
-{
-  "success": "Token gerado com sucesso",
-  "token": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-}
-```
-
-**Códigos de Resposta:**
-- **200:** Token gerado com sucesso.
-- **400:** Dados inválidos (CNPJ ou senha ausentes).
-- **500:** Erro ao salvar no banco de dados.
+## Descrição
+Esta API permite a integração com sistemas fiscais através da validação de CNPJs e geração de tokens seguros. Ela oferece rotas para gerar tokens e processar dados relacionados ao status de CNPJs.
 
 ---
 
-### 2. Registrar Notificação
-**Rota:** `POST /index.php`
+## Rotas Disponíveis
 
-**Descrição:** Registra notificações de entrada ou saída de CNPJs enviados pelas empresas parceiras.
+### **1. Geração de Token**
+**URL:** `/api/geratoken.php`  
+**Método:** `POST`  
+**Descrição:** Gera um token para autenticação futura, associando um CNPJ, nome e senha.
 
-**Cabeçalhos:**
-- **Authorization** (string): Token gerado previamente.
+#### **Cabeçalhos**
+Nenhum cabeçalho específico necessário.
 
-**Parâmetros de Entrada:**
-- **cnpj** (string): CNPJ notificado.
-- **status** (string): Indica se o CNPJ está entrando ou saindo (valores permitidos: `entrada`, `saida`).
-
-**Exemplo de Requisição:**
+#### **Corpo da Requisição (JSON):**
 ```json
 {
-  "cnpj": "98765432000145",
-  "status": "entrada"
+    "cnpj": "12345678000195",
+    "nome": "Nome da Empresa",
+    "senha": "senha123"
 }
 ```
 
-**Exemplo de Resposta (Sucesso):**
-```json
-{
-  "success": "CNPJ registrado com sucesso"
-}
-```
-
-**Códigos de Resposta:**
-- **200:** Dados salvos com sucesso.
-- **400:** Dados inválidos (CNPJ ou status ausentes).
-- **401:** Token inválido ou ausente.
-- **500:** Erro ao salvar os dados no banco de dados.
+#### **Respostas**
+- **200 - Sucesso:**
+  ```json
+  {
+      "success": "Token gerado com sucesso",
+      "token": "TOKEN_GERADO_AQUI"
+  }
+  ```
+- **400 - Erro nos Dados:**
+  ```json
+  {
+      "error": "CNPJ inválido ou dados ausentes"
+  }
+  ```
+- **500 - Erro Interno:**
+  ```json
+  {
+      "error": "Erro ao salvar o token no banco"
+  }
+  ```
 
 ---
 
-## Observações Finais
-- Certifique-se de que todas as conexões usem HTTPS.
-- As respostas da API estão padronizadas em JSON para facilitar a integração.
+### **2. Validação de Token e Processamento**
+**URL:** `/api/index.php`  
+**Método:** `POST`  
+**Descrição:** Valida um token previamente gerado e atualiza os dados relacionados ao status do CNPJ (entrada ou saída).
+
+#### **Cabeçalhos**
+- **Authorization:** Token gerado anteriormente (formato: Base64).
+
+#### **Corpo da Requisição (JSON):**
+```json
+{
+    "cnpj": "12345678000195",
+    "status": "entrada"
+}
+```
+
+#### **Respostas**
+- **200 - Sucesso:**
+  ```json
+  {
+      "success": "Dados salvos com sucesso"
+  }
+  ```
+- **400 - Erro nos Dados:**
+  - Quando o CNPJ ou status estão ausentes ou inválidos:
+    ```json
+    {
+        "error": "Dados inválidos"
+    }
+    ```
+  - Quando o JSON está malformado:
+    ```json
+    {
+        "error": "Formato de JSON inválido"
+    }
+    ```
+- **401 - Autenticação Inválida:**
+  - Token ausente:
+    ```json
+    {
+        "error": "Token ausente"
+    }
+    ```
+  - Token inválido:
+    ```json
+    {
+        "error": "Token inválido"
+    }
+    ```
+  - CNPJ ou senha inválidos:
+    ```json
+    {
+        "error": "CNPJ ou senha inválidos"
+    }
+    ```
+- **500 - Erro Interno:**
+  - Problemas no banco de dados ou outro erro interno:
+    ```json
+    {
+        "error": "Erro ao salvar os dados"
+    }
+    ```
+
+---
+
+## Fluxo de Autenticação
+
+1. **Geração de Token:**
+   - Um token é gerado a partir de um CNPJ, senha e uma chave secreta.
+   - O token é codificado em Base64 e contém:
+     - **CNPJ**
+     - **Senha**
+     - **Hash** (HMAC SHA-256) para garantir integridade.
+
+2. **Validação do Token:**
+   - O token recebido no cabeçalho é decodificado e seu hash é recalculado com a chave secreta.
+   - Caso o hash seja válido, os dados do token são utilizados para acessar o banco.
+
+3. **Atualização de Dados:**
+   - A API permite atualizar o status do CNPJ (`entrada` ou `saída`) no banco de dados.
+
+---
+
+## Observações
+
+- A chave secreta usada para gerar e validar tokens deve ser armazenada de forma segura, fora do diretório público.
+- As respostas JSON seguem o padrão para indicar sucesso ou erro, permitindo fácil integração com sistemas clientes.
+```
