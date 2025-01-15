@@ -57,10 +57,11 @@ Nenhum cabeçalho específico necessário.
 - **Authorization:** Token gerado anteriormente (formato: Base64).
 
 #### **Corpo da Requisição (JSON):**
+- **Status:** E = Entrada e S = Saída.
 ```json
 {
     "cnpj": "12345678000195",
-    "status": "entrada"
+    "status": "E" 
 }
 ```
 
@@ -110,29 +111,3 @@ Nenhum cabeçalho específico necessário.
         "error": "Erro ao salvar os dados"
     }
     ```
-
----
-
-## Fluxo de Autenticação
-
-1. **Geração de Token:**
-   - Um token é gerado a partir de um CNPJ, senha e uma chave secreta.
-   - O token é codificado em Base64 e contém:
-     - **CNPJ**
-     - **Senha**
-     - **Hash** (HMAC SHA-256) para garantir integridade.
-
-2. **Validação do Token:**
-   - O token recebido no cabeçalho é decodificado e seu hash é recalculado com a chave secreta.
-   - Caso o hash seja válido, os dados do token são utilizados para acessar o banco.
-
-3. **Atualização de Dados:**
-   - A API permite atualizar o status do CNPJ (`entrada` ou `saída`) no banco de dados.
-
----
-
-## Observações
-
-- A chave secreta usada para gerar e validar tokens deve ser armazenada de forma segura, fora do diretório público.
-- As respostas JSON seguem o padrão para indicar sucesso ou erro, permitindo fácil integração com sistemas clientes.
-```
