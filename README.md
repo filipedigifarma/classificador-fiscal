@@ -49,7 +49,7 @@ Nenhum cabeçalho específico necessário.
 ---
 
 ### **2. Validação de Token e Processamento**
-**URL:** `/api/index.php`  
+**URL:** `/api/notifica.php`  
 **Método:** `POST`  
 **Descrição:** Valida um token previamente gerado e atualiza os dados relacionados ao status do CNPJ (entrada ou saída).
 
@@ -111,3 +111,4 @@ Nenhum cabeçalho específico necessário.
         "error": "Erro ao salvar os dados"
     }
     ```
+---
