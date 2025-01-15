@@ -1,5 +1,3 @@
----
-
 # API - Integração Fiscal
 
 ## Descrição
