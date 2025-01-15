@@ -57,10 +57,11 @@ Nenhum cabeçalho específico necessário.
 - **Authorization:** Token gerado anteriormente (formato: Base64).
 
 #### **Corpo da Requisição (JSON):**
+- **Status:** E = Entrada e S = Saída.
 ```json
 {
     "cnpj": "12345678000195",
-    "status": "entrada"
+    "status": "E" 
 }
 ```
 
