@@ -116,9 +116,3 @@ Nenhum cabeçalho específico necessário.
     ```
 
 ---
-
-## Notas Finais
-- Certifique-se de que a **chave secreta** utilizada no backend esteja configurada corretamente.
-- A estrutura de banco de dados deve ser configurada previamente para suportar as operações descritas nos endpoints.
-
----
