@@ -135,4 +135,3 @@ Nenhum cabeçalho específico necessário.
 
 - A chave secreta usada para gerar e validar tokens deve ser armazenada de forma segura, fora do diretório público.
 - As respostas JSON seguem o padrão para indicar sucesso ou erro, permitindo fácil integração com sistemas clientes.
-```
