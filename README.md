@@ -9,7 +9,8 @@ Esta API permite a integração com sistemas fiscais através da validação de 
 ## Rotas Disponíveis
 
 ### **1. Geração de Token**
-**URL:** `/api/geratoken.php`  
+**URL BASE:** `https://www.digifarma.com.br/servicos/post/classificador-fiscal`
+**ENDPOINT:** `/geratoken`  
 **Método:** `POST`  
 **Descrição:** Gera um token para autenticação futura, associando um CNPJ, nome e senha.
 
@@ -49,7 +50,7 @@ Nenhum cabeçalho específico necessário.
 ---
 
 ### **2. Validação de Token e Processamento**
-**URL:** `/api/notifica.php`  
+**ENDPOINT:** `/notifica`  
 **Método:** `POST`  
 **Descrição:** Valida um token previamente gerado e atualiza os dados relacionados ao status do CNPJ (entrada ou saída).
 
