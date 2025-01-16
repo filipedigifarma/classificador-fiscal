@@ -1,4 +1,5 @@
 <?php
+include(C_CONECTA);
 header("Content-Type: application/json");
 
 // Função para validar CNPJ
@@ -35,7 +36,7 @@ if (empty($cnpj) || empty($nome) || empty($senhaJ) || !validarCNPJ($cnpj)) {
 }
 
 // Carregar chave secreta
-$config = include dirname(__DIR__) . '/config.php';
+$config = include '/opt/classificador-fiscal/config.php';
 
 if (!isset($config['secret_key'])) {
     http_response_code(500);
@@ -55,7 +56,8 @@ if (!$token) {
 
 // Conectar ao banco
 try {
-    $mysqli = new mysqli("localhost", "root", "", "api");
+    $mysqli = conectar("digifarma");
+    $mysqli->select_db("api");
     if ($mysqli->connect_error) {
         throw new Exception("Erro interno ao processar a solicitação.");
     }
