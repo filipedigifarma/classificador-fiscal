@@ -1,8 +1,7 @@
-
 # API - Integração Fiscal
 
 ## Descrição
-Esta API permite a integração com sistemas fiscais através da validação de CNPJs e geração de tokens seguros. Ela oferece rotas para gerar tokens e processar dados relacionados ao status de CNPJs.
+Esta API permite a integração com sistemas fiscais, fornecendo validação de CNPJs e geração de tokens seguros. Ela disponibiliza endpoints para geração de tokens e processamento de dados relacionados ao status de CNPJs.
 
 ---
 
@@ -59,11 +58,11 @@ Nenhum cabeçalho específico necessário.
 - **Authorization:** Token gerado anteriormente (formato: Base64).
 
 #### **Corpo da Requisição (JSON):**
-- **Status:** E = Entrada e S = Saída.
+- **Status:** `E` = Entrada, `S` = Saída.
 ```json
 {
     "cnpj": "12345678000195",
-    "status": "E" 
+    "status": "E"
 }
 ```
 
@@ -113,4 +112,5 @@ Nenhum cabeçalho específico necessário.
         "error": "Erro ao salvar os dados"
     }
     ```
+
 ---
